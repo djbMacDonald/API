@@ -13,6 +13,5 @@
 
 class Image < ActiveRecord::Base
   belongs_to :tournament
-  validates :url, presence: true
-  validates :tournament_id, presence: true
+  validates :url, :tournament_id, presence: true
 end

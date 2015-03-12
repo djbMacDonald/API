@@ -12,4 +12,6 @@
 
 class Comment < ActiveRecord::Base
   belongs_to :tournament
+  belongs_to :user
+  validates :user_id, :tournament_id, :body, presence: true
 end
