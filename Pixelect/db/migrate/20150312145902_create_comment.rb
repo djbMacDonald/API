@@ -4,6 +4,7 @@ class CreateComment < ActiveRecord::Migration
       t.string :body
       t.belongs_to :tournament, index: true
       t.belongs_to :user, index: true
+      t.string :subcomment
       t.timestamps
     end
     add_foreign_key :comments, :tournaments

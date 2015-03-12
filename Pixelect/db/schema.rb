@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20150312145902) do
     t.string   "body"
     t.integer  "tournament_id"
     t.integer  "user_id"
+    t.string   "subcomment"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
