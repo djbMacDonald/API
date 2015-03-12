@@ -3,9 +3,9 @@ Rails.application.routes.draw do
     resources :tournaments, only: [:index]
   end
   resources :tournaments, only: [:create, :show, :index, :update, :destroy] do
-    resources :images, only: [:index, :create]
+    resources :images, only: [:index]
     resources :comments, only: [:create, :index]
   end
-  resources :images, only: [:show, :flag, :update]
+  resources :images, only: [:create, :show, :flag, :update]
   resources :comments, only: [:update]
 end
