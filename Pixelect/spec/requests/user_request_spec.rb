@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'User requests' do
   before(:each) do
+    User.destroy_all
     @user = User.create!(name: 'Bob', password: 'password', password_confirmation: 'password', email: 'a@a.com')
     @user2 = User.create!(name: 'Mike', password: 'password2', password_confirmation: 'password2', email: 'm@m.com')
     @users = User.all
@@ -17,13 +18,12 @@ RSpec.describe 'User requests' do
           password: '2fast2furious',
           password_confirmation: '2fast2furious'
         }
-      }.to_json,
-      { 'Accept' => Mime::JSON, 'Content-Type' => Mime::JSON.to_s }
+      }
       expect(response).to be_success
       expect(response.content_type).to be Mime::JSON
 
-      user = JSON.parse(response.body)
-      expect(user["name"]).to eq "SamoanThor"
+      auth = JSON.parse(response.body)
+      expect(auth["token"]).to be_a String
     end
   end
 
