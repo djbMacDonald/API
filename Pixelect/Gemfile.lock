@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/rails-api/active_model_serializers.git
+  revision: 4b32e3913cb1cf91f4827d1b65819b0a04641779
+  specs:
+    active_model_serializers (0.10.0.pre)
+      activemodel (>= 4.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -128,6 +135,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_serializers!
   annotate
   bcrypt
   pg
