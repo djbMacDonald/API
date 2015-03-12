@@ -4,14 +4,14 @@ user_3 = User.create!(name: "Brian O'connor", email: 'evo@fastandfurious.com', p
 
 
 tourney_1 = Tournament.create!(question: 'Who should I chase? Owen Shaw or Dominic Torreto?', user_id: user_1.id)
-tourney_2 = Tournament.create!(question: 'American Muscle or Japanese Import?')
+tourney_2 = Tournament.create!(question: 'American Muscle or Japanese Import?', user_id: user_1.id )
 
 
-image_1 = Image.create!(tournament_id: "#{tourney_1.id}")
-image_2 = Image.create!(tournament_id: "#{tourney_1.id}")
+image_1 = Image.create!(url:"knbfh", tournament_id: tourney_1.id)
+image_2 = Image.create!(url:"kldfhlksh", tournament_id: tourney_1.id)
 
-image_3 = Image.create!(tournament_id: "#{tourney_2.id}")
-image_4 = Image.create!(tournament_id: "#{tourney_2.id}")
+image_3 = Image.create!(url:"lkjfldsk", tournament_id: tourney_2.id)
+image_4 = Image.create!(url:"kfdhj", tournament_id: tourney_2.id)
 
-comment_1 = Comment.create!(body: "I am 2 fast 4 you", user_id: "#{user_2.id}", tournament_id: "#{tourney_1}")
-comment_2 = Comment.create!(body: "Of course, Japanese Import!", user_id: "#{user_3.id}", tournament_id: "#{tourney_2}", subcomment: "Psh, nah! American Muscle!")
+comment_1 = Comment.create!(body: "I am 2 fast 4 you", user_id: user_2.id, tournament_id: tourney_1.id)
+comment_2 = Comment.create!(body: "Of course, Japanese Import!", user_id: user_3.id, tournament_id: tourney_2.id, subcomment: "Psh, nah! American Muscle!")
