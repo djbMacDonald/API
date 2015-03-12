@@ -11,5 +11,8 @@
 #
 
 class Tournament < ActiveRecord::Base
-
+  has_many :images
+  has_many :comments
+  validates :question, presence: true
+  validates :user_id, presence: true
 end
