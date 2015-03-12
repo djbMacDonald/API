@@ -8,11 +8,11 @@ RSpec.describe 'Image requests' do
     @user = User.create!(name: 'Bob', password: 'password', password_confirmation: 'password', email: 'a@a.com')
     @tourn = Tournament.create!(question: 'something?', user_id: @user.id)
     @tourn2 = Tournament.create!(question: 'something also?', user_id: @user.id)
-    @img = Image.create(tournament_id: @tourn.id, url: 'something.something.jpeg')
-    Image.create(tournament_id: @tourn.id, url: 'something2.something.jpeg')
-    Image.create(tournament_id: @tourn.id, url: 'something3.something.jpeg')
-    Image.create(tournament_id: @tourn.id, url: 'something4.something.jpeg')
-    Image.create(tournament_id: @tourn2.id, url: 'something5.something.jpeg')
+    @img = Image.create!(tournament_id: @tourn.id, url: 'something.something.jpeg')
+    Image.create!(tournament_id: @tourn.id, url: 'something2.something.jpeg')
+    Image.create!(tournament_id: @tourn.id, url: 'something3.something.jpeg')
+    Image.create!(tournament_id: @tourn.id, url: 'something4.something.jpeg')
+    Image.create!(tournament_id: @tourn2.id, url: 'something5.something.jpeg')
   end
 
   describe '#index' do
@@ -39,7 +39,8 @@ RSpec.describe 'Image requests' do
     it 'shows a chosen picture' do
       get "/images/#{@img.id}"
       expect(response).to be_success
-      expect(response["url"]).to eq "something.something.jpeg"
+      json = JSON.parse(response.body)
+      expect(json["url"]).to eq "something.something.jpeg"
     end
   end
   describe '#update' do
