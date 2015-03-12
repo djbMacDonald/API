@@ -68,7 +68,7 @@ RSpec.describe 'Tournament requests' do
       get "/tournaments/#{@tourn.id}"
       expect(response).to be_success
       json = JSON.parse(response.body)
-      expect(json.length).to eq 1
+      expect(json["question"]).to eq "something?"
     end
   end
 end
