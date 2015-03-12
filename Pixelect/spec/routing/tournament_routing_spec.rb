@@ -38,5 +38,13 @@ RSpec.describe 'routes for tournaments' do
       id: '1'
     )
   end
+
+  it 'routes DELETE /tournaments/1 to the tournaments controller and destroys item' do
+    expect(delete('/tournaments/1')).to route_to(
+      controller: 'tournaments',
+      action: 'destroy',
+      id: '1'
+      )
+  end
 end
 
