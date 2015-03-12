@@ -13,4 +13,5 @@
 
 class Image < ActiveRecord::Base
   belongs_to :tournament
+  validates :url, presence: true
 end
