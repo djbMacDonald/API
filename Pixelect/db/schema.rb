@@ -30,8 +30,8 @@ ActiveRecord::Schema.define(version: 20150312145902) do
   create_table "images", force: :cascade do |t|
     t.integer  "tournament_id"
     t.string   "url"
-    t.integer  "wins"
-    t.integer  "flags"
+    t.integer  "wins",          default: 0
+    t.integer  "flags",         default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
