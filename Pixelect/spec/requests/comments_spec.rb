@@ -45,12 +45,8 @@ RSpec.describe 'Comment requests' do
 
   describe '#update' do
     it 'updates a comment' do
-      patch "/tournaments/#{@tourn.id}/comments/#{@comment.id}",
-      {
-        comment: {
-          body: "body",
-          user_id: @user2.id,
-          tournament_id: @tourn.id,
+      patch "/comments/#{@comment.id}",
+      { comment: {
           subcomment: "some text"
         }
       }.to_json,
