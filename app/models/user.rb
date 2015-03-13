@@ -14,7 +14,8 @@
 class User < ActiveRecord::Base
   has_secure_password
   has_many :tournaments
-  has_many :comments
+  # has_many :comments
+  has_many :comments, through: :tournaments
 
   validates :name, :password, :email, presence: :true
 
