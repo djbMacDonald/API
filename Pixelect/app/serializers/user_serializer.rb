@@ -1,3 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :name, :email
+  has_many :tournaments
+  has_many :comments
 end
