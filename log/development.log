@@ -705,3 +705,40 @@ Processing by TournamentsController#index as HTML
   [1m[36mImage Load (0.4ms)[0m  [1mSELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1[0m  [["tournament_id", 2]]
   [1m[35mComment Load (1.7ms)[0m  SELECT "comments".* FROM "comments" WHERE "comments"."tournament_id" = $1  [["tournament_id", 2]]
 Completed 200 OK in 70ms (Views: 50.7ms | ActiveRecord: 13.9ms)
+  [1m[36mActiveRecord::SchemaMigration Load (3.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.9ms)[0m  BEGIN
+  [1m[36mUser Exists (1.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1[0m  [["token", "a8a289afec3043e5943557d25daad313"]]
+  [1m[35mSQL (6.0ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["name", "SamoanThor"], ["email", "samoan_thor@fastandfurious.com"], ["password_digest", "$2a$10$JofLqMQEPehOieIvd2DBuecRDEQkhLmGRTDnWy2x6RTTFMETPkxeu"], ["created_at", "2015-03-13 14:01:54.450510"], ["updated_at", "2015-03-13 14:01:54.450510"], ["token", "a8a289afec3043e5943557d25daad313"]]
+  [1m[36m (29.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1[0m  [["token", "19a3c21cd5fe4aa89ff0a2887a29f77b"]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["name", "D.Torreto"], ["email", "dtoretto@fastandfurious.com"], ["password_digest", "$2a$10$dgxcKXCMgqDTL1M4FvRXMOg/JxFC6iftSOO4aYvKfNl82hbvhBQiO"], ["created_at", "2015-03-13 14:01:54.614322"], ["updated_at", "2015-03-13 14:01:54.614322"], ["token", "19a3c21cd5fe4aa89ff0a2887a29f77b"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1[0m  [["token", "74012c5926f54031bc87c5b3c73a441b"]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["name", "Brian O'connor"], ["email", "evo@fastandfurious.com"], ["password_digest", "$2a$10$Gb8NPpnfP/yi6P/b1WP4BOJESOAn6KFfkIaCSBXH7D6oEbNBBkD9."], ["created_at", "2015-03-13 14:01:54.709648"], ["updated_at", "2015-03-13 14:01:54.709648"], ["token", "74012c5926f54031bc87c5b3c73a441b"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (4.4ms)[0m  [1mINSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["question", "Who should I chase? Owen Shaw or Dominic Torreto?"], ["user_id", 5], ["created_at", "2015-03-13 14:01:54.727236"], ["updated_at", "2015-03-13 14:01:54.727236"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["question", "American Muscle or Japanese Import?"], ["user_id", 5], ["created_at", "2015-03-13 14:01:54.735508"], ["updated_at", "2015-03-13 14:01:54.735508"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (3.5ms)[0m  [1mINSERT INTO "images" ("url", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["url", "knbfh"], ["tournament_id", 4], ["created_at", "2015-03-13 14:01:54.755675"], ["updated_at", "2015-03-13 14:01:54.755675"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "images" ("url", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["url", "kldfhlksh"], ["tournament_id", 4], ["created_at", "2015-03-13 14:01:54.762945"], ["updated_at", "2015-03-13 14:01:54.762945"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "images" ("url", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["url", "lkjfldsk"], ["tournament_id", 5], ["created_at", "2015-03-13 14:01:54.767291"], ["updated_at", "2015-03-13 14:01:54.767291"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "images" ("url", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["url", "kfdhj"], ["tournament_id", 5], ["created_at", "2015-03-13 14:01:54.771184"], ["updated_at", "2015-03-13 14:01:54.771184"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (1.6ms)[0m  [1mINSERT INTO "comments" ("body", "user_id", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["body", "I am 2 fast 4 you"], ["user_id", 6], ["tournament_id", 4], ["created_at", "2015-03-13 14:01:54.791019"], ["updated_at", "2015-03-13 14:01:54.791019"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "comments" ("body", "user_id", "tournament_id", "subcomment", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["body", "Of course, Japanese Import!"], ["user_id", 7], ["tournament_id", 5], ["subcomment", "Psh, nah! American Muscle!"], ["created_at", "2015-03-13 14:01:54.797187"], ["updated_at", "2015-03-13 14:01:54.797187"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
