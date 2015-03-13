@@ -7,13 +7,18 @@ gem 'rails-api'
 
 gem 'spring', :group => :development
 
-
 gem 'pg'
+
+gem 'rails_12factor', :group => [:production]
+
 gem 'annotate'
 
 gem "rspec-rails", :group => [:development, :test]
+
 gem 'bcrypt'
+
 gem 'rack-cors', :require => 'rack/cors'
+
 gem 'active_model_serializers', github: 'rails-api/active_model_serializers'
 
 # To use ActiveModel has_secure_password
