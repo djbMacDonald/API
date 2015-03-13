@@ -27,7 +27,7 @@ class TournamentsController < ApplicationController
 
   def update
     @tournament = Tournament.find(params[:id])
-    if @tournament.update(edit_tournament_params)
+    if checkStatus(@tournament) && @tournament.update(edit_tournament_params)
       render json: @tournament, status: :ok
     else
       render json: @tournament.errors, status: :unprocessable_entity
@@ -49,5 +49,9 @@ class TournamentsController < ApplicationController
 
   def edit_tournament_params
       params.require(:tournament).permit(:email_list)
+  end
+
+  def checkStatus(tournament)
+    (Time.now - tournament.created_at) / 3600 < 24 ? true : false
   end
 end
