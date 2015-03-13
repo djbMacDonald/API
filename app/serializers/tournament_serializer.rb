@@ -1,7 +1,5 @@
 class TournamentSerializer < ActiveModel::Serializer
-  attributes :id, :question, :email_list, :status, :popular
-  has_many :comments
-  has_many :images
+  attributes :id, :question, :email_list, :status, :popular, :comments, :images
 
   def status
     (Time.now - object.created_at) / 3600 < 24 ? 'open' : 'closed'

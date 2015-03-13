@@ -742,3 +742,130 @@ Completed 200 OK in 70ms (Views: 50.7ms | ActiveRecord: 13.9ms)
   [1m[36m (0.1ms)[0m  [1mBEGIN[0m
   [1m[35mSQL (0.8ms)[0m  INSERT INTO "comments" ("body", "user_id", "tournament_id", "subcomment", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["body", "Of course, Japanese Import!"], ["user_id", 7], ["tournament_id", 5], ["subcomment", "Psh, nah! American Muscle!"], ["created_at", "2015-03-13 14:01:54.797187"], ["updated_at", "2015-03-13 14:01:54.797187"]]
   [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[36mTournament Load (7.2ms)[0m  [1mSELECT  "tournaments".* FROM "tournaments"  ORDER BY "tournaments"."id" ASC LIMIT 1[0m
+  [1m[35mUser Load (2.3ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mUser Load (0.8ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mTournament Load (0.5ms)[0m  SELECT "tournaments".* FROM "tournaments" WHERE "tournaments"."user_id" = $1  [["user_id", 1]]
+
+
+Started GET "/users/1" for ::1 at 2015-03-13 14:07:21 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (47.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (1.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mTournament Load (1.5ms)[0m  [1mSELECT "tournaments".* FROM "tournaments" WHERE "tournaments"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[35mImage Load (2.4ms)[0m  SELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1  [["tournament_id", 1]]
+  [1m[36mImage Load (0.4ms)[0m  [1mSELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1[0m  [["tournament_id", 2]]
+  [1m[35mComment Load (2.6ms)[0m  SELECT "comments".* FROM "comments" WHERE "comments"."user_id" = $1  [["user_id", 1]]
+Completed 200 OK in 145ms (Views: 86.5ms | ActiveRecord: 25.0ms)
+
+
+Started GET "/users/1" for ::1 at 2015-03-13 14:35:07 -0400
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (1.8ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mTournament Load (0.4ms)[0m  SELECT "tournaments".* FROM "tournaments" WHERE "tournaments"."user_id" = $1  [["user_id", 1]]
+  [1m[36mImage Load (0.5ms)[0m  [1mSELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1[0m  [["tournament_id", 1]]
+  [1m[35mImage Load (0.5ms)[0m  SELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1  [["tournament_id", 2]]
+  [1m[36mComment Load (0.4ms)[0m  [1mSELECT "comments".* FROM "comments" WHERE "comments"."user_id" = $1[0m  [["user_id", 1]]
+Completed 200 OK in 105ms (Views: 44.9ms | ActiveRecord: 36.6ms)
+
+
+Started GET "/users/1" for ::1 at 2015-03-13 14:36:10 -0400
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mTournament Load (0.4ms)[0m  [1mSELECT "tournaments".* FROM "tournaments" WHERE "tournaments"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[35mImage Load (0.3ms)[0m  SELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1  [["tournament_id", 1]]
+  [1m[36mImage Load (0.4ms)[0m  [1mSELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1[0m  [["tournament_id", 2]]
+  [1m[35mComment Load (3.4ms)[0m  SELECT "comments".* FROM "comments" INNER JOIN "tournaments" ON "comments"."tournament_id" = "tournaments"."id" WHERE "tournaments"."user_id" = $1  [["user_id", 1]]
+Completed 200 OK in 115ms (Views: 88.9ms | ActiveRecord: 15.0ms)
+
+
+Started GET "/users/1" for ::1 at 2015-03-13 14:40:43 -0400
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (1.9ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mTournament Load (0.8ms)[0m  SELECT "tournaments".* FROM "tournaments" WHERE "tournaments"."user_id" = $1  [["user_id", 1]]
+  [1m[36mImage Load (0.3ms)[0m  [1mSELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1[0m  [["tournament_id", 1]]
+  [1m[35mImage Load (0.2ms)[0m  SELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1  [["tournament_id", 2]]
+  [1m[36mComment Load (0.7ms)[0m  [1mSELECT "comments".* FROM "comments" INNER JOIN "tournaments" ON "comments"."tournament_id" = "tournaments"."id" WHERE "tournaments"."user_id" = $1[0m  [["user_id", 1]]
+Completed 200 OK in 152ms (Views: 48.2ms | ActiveRecord: 69.2ms)
+
+
+Started GET "/users/1" for ::1 at 2015-03-13 14:42:04 -0400
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mComment Load (0.5ms)[0m  [1mSELECT "comments".* FROM "comments" INNER JOIN "tournaments" ON "comments"."tournament_id" = "tournaments"."id" WHERE "tournaments"."user_id" = $1[0m  [["user_id", 1]]
+Completed 200 OK in 37ms (Views: 18.1ms | ActiveRecord: 8.4ms)
+
+
+Started GET "/users/1" for ::1 at 2015-03-13 14:43:01 -0400
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+Completed 200 OK in 18ms (Views: 2.2ms | ActiveRecord: 3.5ms)
+
+
+Started GET "/users/1" for ::1 at 2015-03-13 14:43:15 -0400
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mTournament Load (0.6ms)[0m  SELECT "tournaments".* FROM "tournaments" WHERE "tournaments"."user_id" = $1  [["user_id", 1]]
+  [1m[36mImage Load (0.2ms)[0m  [1mSELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1[0m  [["tournament_id", 1]]
+  [1m[35mImage Load (0.3ms)[0m  SELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1  [["tournament_id", 2]]
+Completed 200 OK in 72ms (Views: 49.3ms | ActiveRecord: 8.5ms)
+
+
+Started GET "/users/1" for ::1 at 2015-03-13 14:43:35 -0400
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mTournament Load (0.3ms)[0m  SELECT "tournaments".* FROM "tournaments" WHERE "tournaments"."user_id" = $1  [["user_id", 1]]
+  [1m[36mImage Load (0.4ms)[0m  [1mSELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1[0m  [["tournament_id", 1]]
+  [1m[35mImage Load (0.3ms)[0m  SELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1  [["tournament_id", 2]]
+Completed 200 OK in 51ms (Views: 29.6ms | ActiveRecord: 8.1ms)
+
+
+Started GET "/users/1" for ::1 at 2015-03-13 14:43:54 -0400
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mComment Load (0.7ms)[0m  SELECT "comments".* FROM "comments" INNER JOIN "tournaments" ON "comments"."tournament_id" = "tournaments"."id" WHERE "tournaments"."user_id" = $1  [["user_id", 1]]
+Completed 200 OK in 43ms (Views: 16.8ms | ActiveRecord: 9.7ms)
+
+
+Started GET "/users/1" for ::1 at 2015-03-13 14:44:09 -0400
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mTournament Load (0.3ms)[0m  SELECT "tournaments".* FROM "tournaments" WHERE "tournaments"."user_id" = $1  [["user_id", 1]]
+  [1m[36mImage Load (0.6ms)[0m  [1mSELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1[0m  [["tournament_id", 1]]
+  [1m[35mImage Load (0.4ms)[0m  SELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1  [["tournament_id", 2]]
+  [1m[36mComment Load (0.6ms)[0m  [1mSELECT "comments".* FROM "comments" INNER JOIN "tournaments" ON "comments"."tournament_id" = "tournaments"."id" WHERE "tournaments"."user_id" = $1[0m  [["user_id", 1]]
+Completed 200 OK in 78ms (Views: 52.9ms | ActiveRecord: 12.5ms)
+
+
+Started GET "/users/1" for ::1 at 2015-03-13 14:46:28 -0400
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mTournament Load (0.3ms)[0m  [1mSELECT "tournaments".* FROM "tournaments" WHERE "tournaments"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[35mImage Load (0.3ms)[0m  SELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1  [["tournament_id", 1]]
+  [1m[36mImage Load (0.3ms)[0m  [1mSELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1[0m  [["tournament_id", 2]]
+  [1m[35mComment Load (0.6ms)[0m  SELECT "comments".* FROM "comments" INNER JOIN "tournaments" ON "comments"."tournament_id" = "tournaments"."id" WHERE "tournaments"."user_id" = $1  [["user_id", 1]]
+Completed 200 OK in 78ms (Views: 43.1ms | ActiveRecord: 12.7ms)
+
+
+Started GET "/users/1" for ::1 at 2015-03-13 14:46:54 -0400
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mTournament Load (0.4ms)[0m  SELECT "tournaments".* FROM "tournaments" WHERE "tournaments"."user_id" = $1  [["user_id", 1]]
+  [1m[36mImage Load (0.3ms)[0m  [1mSELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1[0m  [["tournament_id", 1]]
+  [1m[35mImage Load (0.3ms)[0m  SELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1  [["tournament_id", 2]]
+  [1m[36mComment Load (0.4ms)[0m  [1mSELECT "comments".* FROM "comments" INNER JOIN "tournaments" ON "comments"."tournament_id" = "tournaments"."id" WHERE "tournaments"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[35mComment Load (1.6ms)[0m  SELECT "comments".* FROM "comments" WHERE "comments"."tournament_id" = $1  [["tournament_id", 1]]
+  [1m[36mComment Load (0.5ms)[0m  [1mSELECT "comments".* FROM "comments" WHERE "comments"."tournament_id" = $1[0m  [["tournament_id", 2]]
+Completed 200 OK in 79ms (Views: 54.7ms | ActiveRecord: 13.2ms)
