@@ -22,6 +22,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def index
+    auth_header = request.headers['AUTHORIZATION'].to_s
+    @user = User.where(token: auth_header).take
+    render json: @user
+  end
+
   private
     def user_params
       params.require(:user).permit(:name, :email, :password,:password_confirmation, :token)

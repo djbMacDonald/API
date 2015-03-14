@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :users, only: [:create, :show] do
+  resources :users, only: [:create, :show, :index] do
     post 'sign_in', on: :collection
     resources :tournaments, only: [:index]
   end
@@ -9,4 +9,8 @@ Rails.application.routes.draw do
   end
   resources :images, only: [:create, :show, :flag, :update]
   resources :comments, only: [:update]
+
+  resources :amazon, only: [] do
+    get 'sign_key', on: :collection
+  end
 end
