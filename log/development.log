@@ -974,3 +974,61 @@ Completed 200 OK in 0ms (ActiveRecord: 0.0ms)
 Started GET "/amazon/sign_key" for ::1 at 2015-03-14 12:50:36 -0400
 Processing by AmazonController#sign_key as HTML
 Completed 200 OK in 3ms (Views: 2.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/amazon/sign_key" for ::1 at 2015-03-14 12:57:05 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (3.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by AmazonController#sign_key as HTML
+Completed 200 OK in 3ms (Views: 2.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/tournaments" for ::1 at 2015-03-14 12:57:10 -0400
+Processing by TournamentsController#index as HTML
+  [1m[35mTournament Load (58.9ms)[0m  SELECT "tournaments".* FROM "tournaments"
+  [1m[36mImage Load (61.6ms)[0m  [1mSELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1[0m  [["tournament_id", 1]]
+  [1m[35mImage Load (0.4ms)[0m  SELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1  [["tournament_id", 2]]
+  [1m[36mImage Load (0.3ms)[0m  [1mSELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1[0m  [["tournament_id", 3]]
+  [1m[35mImage Load (0.3ms)[0m  SELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1  [["tournament_id", 4]]
+  [1m[36mImage Load (0.4ms)[0m  [1mSELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1[0m  [["tournament_id", 5]]
+  [1m[35mComment Load (72.3ms)[0m  SELECT "comments".* FROM "comments" WHERE "comments"."tournament_id" = $1  [["tournament_id", 1]]
+  [1m[36mComment Load (0.4ms)[0m  [1mSELECT "comments".* FROM "comments" WHERE "comments"."tournament_id" = $1[0m  [["tournament_id", 2]]
+  [1m[35mComment Load (0.3ms)[0m  SELECT "comments".* FROM "comments" WHERE "comments"."tournament_id" = $1  [["tournament_id", 3]]
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT "comments".* FROM "comments" WHERE "comments"."tournament_id" = $1[0m  [["tournament_id", 4]]
+  [1m[35mComment Load (0.3ms)[0m  SELECT "comments".* FROM "comments" WHERE "comments"."tournament_id" = $1  [["tournament_id", 5]]
+Completed 200 OK in 529ms (Views: 161.2ms | ActiveRecord: 353.8ms)
+
+
+Started GET "/amazon/sign_key" for ::1 at 2015-03-14 12:57:36 -0400
+Processing by AmazonController#sign_key as HTML
+Completed 200 OK in 2ms (Views: 1.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/amazon/sign_key" for ::1 at 2015-03-14 12:59:18 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (1.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by AmazonController#sign_key as HTML
+Completed 200 OK in 2ms (Views: 1.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/amazon/sign_key" for ::1 at 2015-03-14 12:59:25 -0400
+Processing by AmazonController#sign_key as HTML
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/amazon/sign_key" for ::1 at 2015-03-14 12:59:27 -0400
+Processing by AmazonController#sign_key as HTML
+Completed 200 OK in 2ms (Views: 2.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/amazon/sign_key" for ::1 at 2015-03-14 12:59:31 -0400
+Processing by AmazonController#sign_key as HTML
+Completed 200 OK in 2ms (Views: 1.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/amazon/sign_key" for ::1 at 2015-03-14 12:59:34 -0400
+Processing by AmazonController#sign_key as HTML
+Completed 200 OK in 2ms (Views: 1.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/amazon/sign_key" for ::1 at 2015-03-14 12:59:37 -0400
+Processing by AmazonController#sign_key as HTML
+Completed 200 OK in 2ms (Views: 1.2ms | ActiveRecord: 0.0ms)
