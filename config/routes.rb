@@ -11,6 +11,6 @@ Rails.application.routes.draw do
   resources :comments, only: [:update]
 
   resources :amazon, only: [] do
-    post 'sign_key', on: :collection
+    get 'sign_key', on: :collection
   end
 end
