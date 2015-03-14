@@ -9,4 +9,8 @@ Rails.application.routes.draw do
   end
   resources :images, only: [:create, :show, :flag, :update]
   resources :comments, only: [:update]
+
+  resources :amazon, only: [] do
+    get 'sign_key', on: :collection
+  end
 end
