@@ -1,5 +1,10 @@
 class AmazonController < ApplicationController
+
   def sign_key
+    render json: get_s3_upload_key
+  end
+
+  def get_s3_upload_key
         bucket = ENV['MYBUCKET']
         access_key = ENV['S3_ACCESS_KEY']
         secret = ENV['S3_SECRET_ACCESS_KEY']
