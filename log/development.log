@@ -889,3 +889,8 @@ Processing by UsersController#show as HTML
   [1m[35mComment Load (0.3ms)[0m  SELECT "comments".* FROM "comments" WHERE "comments"."tournament_id" = $1  [["tournament_id", 1]]
   [1m[36mComment Load (0.4ms)[0m  [1mSELECT "comments".* FROM "comments" WHERE "comments"."tournament_id" = $1[0m  [["tournament_id", 2]]
 Completed 200 OK in 622ms (Views: 231.1ms | ActiveRecord: 376.2ms)
+  [1m[36m (1.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (3.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1  [["token", "3cb2edee41f640f699e57010930d9c21"]]
+  [1m[36mSQL (10.3ms)[0m  [1mINSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "mike"], ["email", "mike"], ["password_digest", "$2a$10$Zl7nK5dZuQAKKyKmJIdK/.xkFGok0BkFbTgPyrCj3xod5GWIXWOdK"], ["created_at", "2015-03-13 21:49:05.668951"], ["updated_at", "2015-03-13 21:49:05.668951"], ["token", "3cb2edee41f640f699e57010930d9c21"]]
+  [1m[35m (31.3ms)[0m  COMMIT
+  [1m[36mUser Load (8.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."token" = $1[0m  [["token", "3cb2edee41f640f699e57010930d9c21"]]

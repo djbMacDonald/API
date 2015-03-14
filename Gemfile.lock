@@ -47,6 +47,15 @@ GEM
       activerecord (>= 2.3.0)
       rake (>= 0.8.7)
     arel (6.0.0)
+    aws-sdk (2.0.30)
+      aws-sdk-resources (= 2.0.30)
+    aws-sdk-core (2.0.30)
+      builder (~> 3.0)
+      jmespath (~> 1.0)
+      multi_json (~> 1.0)
+      multi_xml (~> 0.5)
+    aws-sdk-resources (2.0.30)
+      aws-sdk-core (= 2.0.30)
     bcrypt (3.1.10)
     builder (3.2.2)
     diff-lcs (1.2.5)
@@ -55,6 +64,8 @@ GEM
       activesupport (>= 4.1.0)
     hike (1.2.3)
     i18n (0.7.0)
+    jmespath (1.0.2)
+      multi_json (~> 1.0)
     json (1.8.2)
     loofah (2.0.1)
       nokogiri (>= 1.5.9)
@@ -64,6 +75,7 @@ GEM
     mini_portile (0.6.2)
     minitest (5.5.1)
     multi_json (1.11.0)
+    multi_xml (0.5.5)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     pg (0.18.1)
@@ -142,6 +154,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers!
   annotate
+  aws-sdk (~> 2)
   bcrypt
   pg
   rack-cors
