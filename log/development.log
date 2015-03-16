@@ -1032,3 +1032,13 @@ Completed 200 OK in 2ms (Views: 1.3ms | ActiveRecord: 0.0ms)
 Started GET "/amazon/sign_key" for ::1 at 2015-03-14 12:59:37 -0400
 Processing by AmazonController#sign_key as HTML
 Completed 200 OK in 2ms (Views: 1.2ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1  [["token", "4278b56da2e240c79886f0a831794ed3"]]
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Rick Grimes"], ["password_digest", "$2a$10$KuWlG9vm49zBpFIzHt/xvONr04NlZijafqSYiBWGc4j8RrZgoQ/IS"], ["email", "walkingdead@amc.com"], ["created_at", "2015-03-16 21:28:36.095844"], ["updated_at", "2015-03-16 21:28:36.095844"], ["token", "4278b56da2e240c79886f0a831794ed3"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.5ms)[0m  INSERT INTO "tournaments" ("user_id", "question", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["user_id", 4], ["question", "question?"], ["created_at", "2015-03-16 21:28:46.626332"], ["updated_at", "2015-03-16 21:28:46.626332"]]
+  [1m[36mSQL (1.6ms)[0m  [1mINSERT INTO "images" ("url", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["url", "dfd"], ["tournament_id", 3], ["created_at", "2015-03-16 21:28:46.631022"], ["updated_at", "2015-03-16 21:28:46.631022"]]
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "images" ("url", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["url", "sdf"], ["tournament_id", 3], ["created_at", "2015-03-16 21:28:46.636231"], ["updated_at", "2015-03-16 21:28:46.636231"]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "images" ("url", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["url", "asd"], ["tournament_id", 3], ["created_at", "2015-03-16 21:28:46.637782"], ["updated_at", "2015-03-16 21:28:46.637782"]]
+  [1m[35m (0.7ms)[0m  COMMIT

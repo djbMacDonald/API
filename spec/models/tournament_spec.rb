@@ -20,4 +20,9 @@ RSpec.describe Tournament do
     expect(Tournament.create(user_id: user1.id)).not_to be_valid
     end
   end
+
+  it 'can create comments as well' do
+    user1 = User.create!(name: 'Rick Grimes', password: 'dfdf', email: 'walkingdead@amc.com')
+    Tournament.create!(user_id: user1.id, question: 'question?', images_attributes: [{url: 'dfd'}, {url: 'sdf'}, {url: 'asd'}])
+  end
 end
