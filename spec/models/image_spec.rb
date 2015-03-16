@@ -15,9 +15,9 @@ RSpec.describe Image do
       expect(Image.create(tournament_id: @tourn.id)).not_to be_valid
     end
 
-    it 'is invalid without a tournament' do
-      expect(Image.create(url: 'example@example.com')).not_to be_valid
-    end
+    # it 'is invalid without a tournament' do
+    #   expect(Image.create(url: 'example@example.com')).not_to be_valid
+    # end
 
     it 'is valid with a url and tournament' do
       expect(Image.create(url: 'http://sampleurl.com', tournament_id: @tourn.id)).to be_valid

@@ -14,4 +14,5 @@ class Tournament < ActiveRecord::Base
   has_many :images
   has_many :comments
   validates :question, :user_id, presence: true
+  accepts_nested_attributes_for :images
 end
