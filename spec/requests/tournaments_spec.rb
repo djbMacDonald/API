@@ -44,6 +44,17 @@ RSpec.describe 'Tournament requests' do
       tournament = JSON.parse(response.body)
       expect(tournament["question"]).to eq "which color is warmer?"
     end
+
+    it 'can create a tournament with images' do
+      post "/tournaments",
+      {
+        tournament: {
+          question: "which color is warmer?",
+          user_id: @user.id,
+          images: [{url: 'asd'}, {url: 'cec'}, {url: 'qwe'}]
+        }
+      }
+    end
   end
 
   describe '#update' do
