@@ -15754,3 +15754,678 @@ Completed 200 OK in 9ms (Views: 8.0ms | ActiveRecord: 1.0ms)
   [1m[35m (0.1ms)[0m  ROLLBACK
   [1m[36m (0.1ms)[0m  [1mBEGIN[0m
   [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (174.9ms)[0m  [1mDROP DATABASE IF EXISTS "Pixelect_test"[0m
+  [1m[35m (4688.0ms)[0m  CREATE DATABASE "Pixelect_test" ENCODING = 'unicode'
+  [1m[36mSQL (3.8ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (81.5ms)[0m  CREATE TABLE "comments" ("id" serial primary key, "body" character varying, "tournament_id" integer, "user_id" integer, "subcomment" character varying, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (3.0ms)[0m  [1mCREATE  INDEX  "index_comments_on_tournament_id" ON "comments" USING btree ("tournament_id")[0m
+  [1m[35m (2.4ms)[0m  CREATE  INDEX  "index_comments_on_user_id" ON "comments" USING btree ("user_id")
+  [1m[36m (11.8ms)[0m  [1mCREATE TABLE "images" ("id" serial primary key, "tournament_id" integer, "url" character varying, "wins" integer DEFAULT 0, "flags" integer DEFAULT 0, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.7ms)[0m  CREATE  INDEX  "index_images_on_tournament_id" ON "images" USING btree ("tournament_id")
+  [1m[36m (6.8ms)[0m  [1mCREATE TABLE "tournaments" ("id" serial primary key, "user_id" integer, "question" character varying, "email_list" character varying, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (2.1ms)[0m  CREATE  INDEX  "index_tournaments_on_user_id" ON "tournaments" USING btree ("user_id")
+  [1m[36m (5.6ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "name" character varying, "password_digest" character varying, "token" character varying, "email" character varying, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (18.2ms)[0m  ALTER TABLE "comments" ADD CONSTRAINT "fk_rails_310b47f547"
+FOREIGN KEY ("tournament_id")
+  REFERENCES "tournaments" ("id")
+
+  [1m[36m (5.9ms)[0m  [1mALTER TABLE "comments" ADD CONSTRAINT "fk_rails_93e5292616"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (6.5ms)[0m  ALTER TABLE "images" ADD CONSTRAINT "fk_rails_7513fdc53f"
+FOREIGN KEY ("tournament_id")
+  REFERENCES "tournaments" ("id")
+
+  [1m[36m (2.5ms)[0m  [1mALTER TABLE "tournaments" ADD CONSTRAINT "fk_rails_6bdc23d447"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (3.3ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying NOT NULL) 
+  [1m[36m (1.9ms)[0m  [1mCREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")[0m
+  [1m[35m (3.4ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (6.9ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150312145902')[0m
+  [1m[35m (1.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150312145445')
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150312145606')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150312145801')
+  [1m[36mActiveRecord::SchemaMigration Load (3.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.6ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.9ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1  [["token", "6faf7748664d4f52b0cae41952d500be"]]
+  [1m[36mSQL (1.5ms)[0m  [1mINSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Bob"], ["password_digest", "$2a$04$mEdyfWQgpF2yc3Vu2CNU1.Qctz39GzXdKujLgkz5SyQbOVNuFmwdO"], ["email", "a@a.com"], ["created_at", "2015-03-16 22:31:56.086333"], ["updated_at", "2015-03-16 22:31:56.086333"], ["token", "6faf7748664d4f52b0cae41952d500be"]]
+  [1m[35m (0.3ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (1.7ms)[0m  INSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["question", "something?"], ["user_id", 1], ["created_at", "2015-03-16 22:31:56.159288"], ["updated_at", "2015-03-16 22:31:56.159288"]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.8ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.8ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1[0m  [["token", "a27199b12b5b41d28b94fe44d04007ea"]]
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["name", "Bob"], ["password_digest", "$2a$04$Ox6gG1ktZTic2xF5bt4nnu5L0mnQ907aYnw0ndWkgEJbNGTK9nXQG"], ["email", "a@a.com"], ["created_at", "2015-03-16 22:31:56.207294"], ["updated_at", "2015-03-16 22:31:56.207294"], ["token", "a27199b12b5b41d28b94fe44d04007ea"]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["question", "something?"], ["user_id", 2], ["created_at", "2015-03-16 22:31:56.213158"], ["updated_at", "2015-03-16 22:31:56.213158"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1  [["token", "a28e29744b1047fd91070e474cdb9be0"]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Bob"], ["password_digest", "$2a$04$Q83TSQGaT2yiiFtAKD212OSOGC4s9lINqCnnwO6NxfAhNwaRKmY42"], ["email", "a@a.com"], ["created_at", "2015-03-16 22:31:56.220863"], ["updated_at", "2015-03-16 22:31:56.220863"], ["token", "a28e29744b1047fd91070e474cdb9be0"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["question", "something?"], ["user_id", 3], ["created_at", "2015-03-16 22:31:56.223894"], ["updated_at", "2015-03-16 22:31:56.223894"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1[0m  [["token", "ea2f2ce835444eaa951ac021a9b483ae"]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["name", "Bob"], ["password_digest", "$2a$04$h2hdg6yr.QRiY/T1ZTCN4uZ.LPHTnEVHCAm5yt3x40rMjKmIw.i8G"], ["email", "a@a.com"], ["created_at", "2015-03-16 22:31:56.230651"], ["updated_at", "2015-03-16 22:31:56.230651"], ["token", "ea2f2ce835444eaa951ac021a9b483ae"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["question", "something?"], ["user_id", 4], ["created_at", "2015-03-16 22:31:56.234041"], ["updated_at", "2015-03-16 22:31:56.234041"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1  [["token", "f43c6953815c429691a0506f13db311d"]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Bob"], ["password_digest", "$2a$04$6btN8t3e6lEUm3xLu/3.iuT4b4Y7g0ZAmSusjg4jdsoQwD.aikrVS"], ["email", "a@a.com"], ["created_at", "2015-03-16 22:31:56.241749"], ["updated_at", "2015-03-16 22:31:56.241749"], ["token", "f43c6953815c429691a0506f13db311d"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["question", "something?"], ["user_id", 5], ["created_at", "2015-03-16 22:31:56.244824"], ["updated_at", "2015-03-16 22:31:56.244824"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (1.4ms)[0m  [1mINSERT INTO "comments" ("body", "user_id", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["body", "hi"], ["user_id", 5], ["tournament_id", 5], ["created_at", "2015-03-16 22:31:56.247204"], ["updated_at", "2015-03-16 22:31:56.247204"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1  [["token", "5c34ac49d0964dc98a74dbb0c98618c5"]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Bob"], ["password_digest", "$2a$04$YRgxJoduLwypB1aiDYv7SeOTQI9B2WTZ7M1EItL0L3n58TC5I5dR6"], ["email", "a@a.com"], ["created_at", "2015-03-16 22:31:56.255040"], ["updated_at", "2015-03-16 22:31:56.255040"], ["token", "5c34ac49d0964dc98a74dbb0c98618c5"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["question", "something?"], ["user_id", 6], ["created_at", "2015-03-16 22:31:56.258044"], ["updated_at", "2015-03-16 22:31:56.258044"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1[0m  [["token", "ae456d0488d143099bdf68e4318d1368"]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["name", "Bob"], ["password_digest", "$2a$04$2YnKzMxMwZcfIsZXQUnhPeqTaNM2c/U7QdR.HQGOuSGb.0nVgTvwu"], ["email", "a@a.com"], ["created_at", "2015-03-16 22:31:56.271546"], ["updated_at", "2015-03-16 22:31:56.271546"], ["token", "ae456d0488d143099bdf68e4318d1368"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["question", "something?"], ["user_id", 7], ["created_at", "2015-03-16 22:31:56.274728"], ["updated_at", "2015-03-16 22:31:56.274728"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1  [["token", "87aa89a162fd42a19e2c684dcda075c3"]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Bob"], ["password_digest", "$2a$04$pA8BuqoDBCYj/JITxDHQRu28Q4vpYwh2G3CvfkM4y1YaQU8tyc8PW"], ["email", "a@a.com"], ["created_at", "2015-03-16 22:31:56.282978"], ["updated_at", "2015-03-16 22:31:56.282978"], ["token", "87aa89a162fd42a19e2c684dcda075c3"]]
+  [1m[35m (0.3ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["question", "something?"], ["user_id", 8], ["created_at", "2015-03-16 22:31:56.288355"], ["updated_at", "2015-03-16 22:31:56.288355"]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (1.2ms)[0m  [1mINSERT INTO "images" ("url", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["url", "http://sampleurl.com"], ["tournament_id", 8], ["created_at", "2015-03-16 22:31:56.291871"], ["updated_at", "2015-03-16 22:31:56.291871"]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1  [["token", "4855701dca554420836f1f5a23616c17"]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Bob"], ["password_digest", "$2a$04$.KCxet8Dl5r.6vn0NN9YselbeMM99HdkFfwCX3HQRj2FpJcZJQCFC"], ["email", "a@a.com"], ["created_at", "2015-03-16 22:31:56.300470"], ["updated_at", "2015-03-16 22:31:56.300470"], ["token", "4855701dca554420836f1f5a23616c17"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["question", "something?"], ["user_id", 9], ["created_at", "2015-03-16 22:31:56.303736"], ["updated_at", "2015-03-16 22:31:56.303736"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "images" ("url", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["url", "http://sampleurl.com"], ["tournament_id", 9], ["created_at", "2015-03-16 22:31:56.305786"], ["updated_at", "2015-03-16 22:31:56.305786"]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1  [["token", "8161cf4fa2404fcab9f5a9087f145dea"]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Bob"], ["password_digest", "$2a$04$wDtrEe.ryfXYZsrHBP8hV.Yf318l0dXXSAIm7LvMREbVsLFY86x3O"], ["email", "a@a.com"], ["created_at", "2015-03-16 22:31:56.317526"], ["updated_at", "2015-03-16 22:31:56.317526"], ["token", "8161cf4fa2404fcab9f5a9087f145dea"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["question", "something?"], ["user_id", 10], ["created_at", "2015-03-16 22:31:56.321245"], ["updated_at", "2015-03-16 22:31:56.321245"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "images" ("url", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["url", "http://sampleurl.com"], ["tournament_id", 10], ["created_at", "2015-03-16 22:31:56.323318"], ["updated_at", "2015-03-16 22:31:56.323318"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1  [["token", "9905c5d60aca4f6c92892270fda41906"]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Rick Grimes"], ["password_digest", "$2a$04$5OO9S9oIG3M1Eu5I32CRreIOy509uoBoJAxrcZupKQTs2a.yZh4Tu"], ["email", "walkingdead@amc.com"], ["created_at", "2015-03-16 22:31:56.328592"], ["updated_at", "2015-03-16 22:31:56.328592"], ["token", "9905c5d60aca4f6c92892270fda41906"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "tournaments" ("user_id", "question", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["user_id", 11], ["question", "question?"], ["created_at", "2015-03-16 22:31:56.415864"], ["updated_at", "2015-03-16 22:31:56.415864"]]
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "images" ("url", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["url", "dfd"], ["tournament_id", 11], ["created_at", "2015-03-16 22:31:56.418224"], ["updated_at", "2015-03-16 22:31:56.418224"]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "images" ("url", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["url", "sdf"], ["tournament_id", 11], ["created_at", "2015-03-16 22:31:56.419949"], ["updated_at", "2015-03-16 22:31:56.419949"]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "images" ("url", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["url", "asd"], ["tournament_id", 11], ["created_at", "2015-03-16 22:31:56.421408"], ["updated_at", "2015-03-16 22:31:56.421408"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1  [["token", "154a45a5dd2144419107d9c8677dd6e9"]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Rick Grimes"], ["password_digest", "$2a$04$JO0rE8lhQ7sArAWaPwHeAeWYgOeZiWRvgNBaZYvnQJCOPyeg9gEfK"], ["email", "walkingdead@amc.com"], ["created_at", "2015-03-16 22:31:56.430434"], ["updated_at", "2015-03-16 22:31:56.430434"], ["token", "154a45a5dd2144419107d9c8677dd6e9"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "tournaments" ("user_id", "question", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["user_id", 12], ["question", "best tv show?"], ["created_at", "2015-03-16 22:31:56.433794"], ["updated_at", "2015-03-16 22:31:56.433794"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1[0m  [["token", "eaee92d16173472eb8dfa6f74e210d3d"]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["name", "Rick Grimes"], ["password_digest", "$2a$04$zr2PnMd332Y30l.Ykc3s3.iWaQ8ub9J7v5EPzwPh4ZcBE6cM4OAaa"], ["email", "walkingdead@amc.com"], ["created_at", "2015-03-16 22:31:56.441658"], ["updated_at", "2015-03-16 22:31:56.441658"], ["token", "eaee92d16173472eb8dfa6f74e210d3d"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.3ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1[0m  [["token", "8c21f946d9f24052bdb16cc3cc6e390f"]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["name", "SamoanThor"], ["email", "samoan_thor@fastandfurious.com"], ["password_digest", "$2a$04$HTS43zFw3UvVj8DHHDi7eeP13C/N4TjDBRfvOuGcxjJzmKWfkpNiC"], ["created_at", "2015-03-16 22:31:56.469747"], ["updated_at", "2015-03-16 22:31:56.469747"], ["token", "8c21f946d9f24052bdb16cc3cc6e390f"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT "comments".* FROM "comments"
+  [1m[36mTournament Load (0.2ms)[0m  [1mSELECT "tournaments".* FROM "tournaments"[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users"
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1  [["token", "7a89eaa17637403d9257cdb032155c69"]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Bob"], ["password_digest", "$2a$04$/nLRmdU9e9HVr1SQVKJJWeqXBWCfNgXL.55rfGplikrjzu6vPF3oq"], ["email", "a@a.com"], ["created_at", "2015-03-16 22:31:56.478364"], ["updated_at", "2015-03-16 22:31:56.478364"], ["token", "7a89eaa17637403d9257cdb032155c69"]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["question", "something?"], ["user_id", 15], ["created_at", "2015-03-16 22:31:56.482994"], ["updated_at", "2015-03-16 22:31:56.482994"]]
+  [1m[36m (0.3ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1[0m  [["token", "80e4fce339e84ed8ac1f4ed4dab015d7"]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["name", "Mike"], ["password_digest", "$2a$04$70Ep5/fsRqt1xdPeJR/shuKi1pHnH.qxuxOZoMT4ylvHsSuieFvxK"], ["email", "m@m.com"], ["created_at", "2015-03-16 22:31:56.490005"], ["updated_at", "2015-03-16 22:31:56.490005"], ["token", "80e4fce339e84ed8ac1f4ed4dab015d7"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["question", "something also?"], ["user_id", 16], ["created_at", "2015-03-16 22:31:56.493512"], ["updated_at", "2015-03-16 22:31:56.493512"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "comments" ("body", "user_id", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["body", "this is a comment body"], ["user_id", 15], ["tournament_id", 13], ["created_at", "2015-03-16 22:31:56.495627"], ["updated_at", "2015-03-16 22:31:56.495627"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "comments" ("body", "user_id", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["body", "this is another comment body"], ["user_id", 16], ["tournament_id", 13], ["created_at", "2015-03-16 22:31:56.498032"], ["updated_at", "2015-03-16 22:31:56.498032"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "comments" ("body", "user_id", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["body", "this is a comment body"], ["user_id", 16], ["tournament_id", 14], ["created_at", "2015-03-16 22:31:56.501057"], ["updated_at", "2015-03-16 22:31:56.501057"]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "comments" ("body", "user_id", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["body", "this is a comment body"], ["user_id", 15], ["tournament_id", 14], ["created_at", "2015-03-16 22:31:56.504511"], ["updated_at", "2015-03-16 22:31:56.504511"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Started GET "/tournaments/13/comments" for 127.0.0.1 at 2015-03-16 18:31:56 -0400
+Processing by CommentsController#index as HTML
+  Parameters: {"tournament_id"=>"13"}
+  [1m[36mTournament Load (1.0ms)[0m  [1mSELECT  "tournaments".* FROM "tournaments" WHERE "tournaments"."id" = $1 LIMIT 1[0m  [["id", 13]]
+  [1m[35mComment Load (0.3ms)[0m  SELECT "comments".* FROM "comments" WHERE "comments"."tournament_id" = $1  [["tournament_id", 13]]
+Completed 200 OK in 26ms (Views: 14.7ms | ActiveRecord: 1.3ms)
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mComment Load (0.5ms)[0m  [1mSELECT "comments".* FROM "comments"[0m
+  [1m[35mTournament Load (0.6ms)[0m  SELECT "tournaments".* FROM "tournaments"
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1[0m  [["token", "5edffab2fc4c4d11978d3638f85deee4"]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["name", "Bob"], ["password_digest", "$2a$04$680L0T/ce796ZBAL98AlzuejJF2Z1JESjwqFhUtwg6u0CsiPuK5Pm"], ["email", "a@a.com"], ["created_at", "2015-03-16 22:31:56.588640"], ["updated_at", "2015-03-16 22:31:56.588640"], ["token", "5edffab2fc4c4d11978d3638f85deee4"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["question", "something?"], ["user_id", 17], ["created_at", "2015-03-16 22:31:56.592099"], ["updated_at", "2015-03-16 22:31:56.592099"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1  [["token", "e825a2c08cee4914ad87d96edf75a4f4"]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Mike"], ["password_digest", "$2a$04$qcBwUknkxfoyaePZ/TK3rObsDUNuebErsZL4BIlbaad7dl14k5p62"], ["email", "m@m.com"], ["created_at", "2015-03-16 22:31:56.595753"], ["updated_at", "2015-03-16 22:31:56.595753"], ["token", "e825a2c08cee4914ad87d96edf75a4f4"]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["question", "something also?"], ["user_id", 18], ["created_at", "2015-03-16 22:31:56.598810"], ["updated_at", "2015-03-16 22:31:56.598810"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "comments" ("body", "user_id", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["body", "this is a comment body"], ["user_id", 17], ["tournament_id", 15], ["created_at", "2015-03-16 22:31:56.601365"], ["updated_at", "2015-03-16 22:31:56.601365"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "comments" ("body", "user_id", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["body", "this is another comment body"], ["user_id", 18], ["tournament_id", 15], ["created_at", "2015-03-16 22:31:56.603751"], ["updated_at", "2015-03-16 22:31:56.603751"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "comments" ("body", "user_id", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["body", "this is a comment body"], ["user_id", 18], ["tournament_id", 16], ["created_at", "2015-03-16 22:31:56.605802"], ["updated_at", "2015-03-16 22:31:56.605802"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "comments" ("body", "user_id", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["body", "this is a comment body"], ["user_id", 17], ["tournament_id", 16], ["created_at", "2015-03-16 22:31:56.607947"], ["updated_at", "2015-03-16 22:31:56.607947"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/tournaments/15/comments/" for 127.0.0.1 at 2015-03-16 18:31:56 -0400
+Processing by CommentsController#create as JSON
+  Parameters: {"comment"=>{"body"=>"body", "user_id"=>17, "tournament_id"=>15}, "tournament_id"=>"15"}
+  [1m[35mTournament Load (0.4ms)[0m  SELECT  "tournaments".* FROM "tournaments" WHERE "tournaments"."id" = $1 LIMIT 1  [["id", 15]]
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "comments" ("body", "tournament_id", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["body", "body"], ["tournament_id", 15], ["user_id", 17], ["created_at", "2015-03-16 22:31:56.617560"], ["updated_at", "2015-03-16 22:31:56.617560"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Completed 201 Created in 6ms (Views: 0.3ms | ActiveRecord: 1.0ms)
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT "comments".* FROM "comments"
+  [1m[36mTournament Load (0.3ms)[0m  [1mSELECT "tournaments".* FROM "tournaments"[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users"
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1  [["token", "0edd22ed3fb04ca79d4ac9eed240058f"]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Bob"], ["password_digest", "$2a$04$lZH0fPJeaGr3RMvdU56IpeRa2I/owEb70ctQjA1Eak/ZCQlFILVAm"], ["email", "a@a.com"], ["created_at", "2015-03-16 22:31:56.631508"], ["updated_at", "2015-03-16 22:31:56.631508"], ["token", "0edd22ed3fb04ca79d4ac9eed240058f"]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["question", "something?"], ["user_id", 19], ["created_at", "2015-03-16 22:31:56.637637"], ["updated_at", "2015-03-16 22:31:56.637637"]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1[0m  [["token", "39a1f31442fa47159d36e371c04ce6a7"]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["name", "Mike"], ["password_digest", "$2a$04$iApBK69WbTTmwsa1Kq8vouxiqpvUqYzMvDadjSHJa6cDvzBg4B7ZK"], ["email", "m@m.com"], ["created_at", "2015-03-16 22:31:56.643481"], ["updated_at", "2015-03-16 22:31:56.643481"], ["token", "39a1f31442fa47159d36e371c04ce6a7"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.4ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["question", "something also?"], ["user_id", 20], ["created_at", "2015-03-16 22:31:56.647048"], ["updated_at", "2015-03-16 22:31:56.647048"]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "comments" ("body", "user_id", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["body", "this is a comment body"], ["user_id", 19], ["tournament_id", 17], ["created_at", "2015-03-16 22:31:56.650331"], ["updated_at", "2015-03-16 22:31:56.650331"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "comments" ("body", "user_id", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["body", "this is another comment body"], ["user_id", 20], ["tournament_id", 17], ["created_at", "2015-03-16 22:31:56.653993"], ["updated_at", "2015-03-16 22:31:56.653993"]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "comments" ("body", "user_id", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["body", "this is a comment body"], ["user_id", 20], ["tournament_id", 18], ["created_at", "2015-03-16 22:31:56.657114"], ["updated_at", "2015-03-16 22:31:56.657114"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "comments" ("body", "user_id", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["body", "this is a comment body"], ["user_id", 19], ["tournament_id", 18], ["created_at", "2015-03-16 22:31:56.659521"], ["updated_at", "2015-03-16 22:31:56.659521"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Started PATCH "/comments/12" for 127.0.0.1 at 2015-03-16 18:31:56 -0400
+Processing by CommentsController#update as JSON
+  Parameters: {"comment"=>{"subcomment"=>"some text"}, "id"=>"12"}
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT  "comments".* FROM "comments" WHERE "comments"."id" = $1 LIMIT 1[0m  [["id", 12]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.7ms)[0m  [1mUPDATE "comments" SET "subcomment" = $1, "updated_at" = $2 WHERE "comments"."id" = $3[0m  [["subcomment", "some text"], ["updated_at", "2015-03-16 22:31:56.669941"], ["id", 12]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Completed 200 OK in 8ms (Views: 0.5ms | ActiveRecord: 1.3ms)
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mImage Load (0.4ms)[0m  [1mSELECT "images".* FROM "images"[0m
+  [1m[35mTournament Load (0.3ms)[0m  SELECT "tournaments".* FROM "tournaments"
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1[0m  [["token", "1693d36a2bcd49e1ba7f7a630908ff90"]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["name", "Bob"], ["password_digest", "$2a$04$QSxixcikmslNoCAldYDzWe8ue6tKUhpHBAO321VKgJCSmIhkGelMm"], ["email", "a@a.com"], ["created_at", "2015-03-16 22:31:56.684925"], ["updated_at", "2015-03-16 22:31:56.684925"], ["token", "1693d36a2bcd49e1ba7f7a630908ff90"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["question", "something?"], ["user_id", 21], ["created_at", "2015-03-16 22:31:56.688904"], ["updated_at", "2015-03-16 22:31:56.688904"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["question", "something also?"], ["user_id", 21], ["created_at", "2015-03-16 22:31:56.690938"], ["updated_at", "2015-03-16 22:31:56.690938"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "images" ("tournament_id", "url", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["tournament_id", 19], ["url", "something.something.jpeg"], ["created_at", "2015-03-16 22:31:56.693445"], ["updated_at", "2015-03-16 22:31:56.693445"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "images" ("tournament_id", "url", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["tournament_id", 19], ["url", "something2.something.jpeg"], ["created_at", "2015-03-16 22:31:56.695482"], ["updated_at", "2015-03-16 22:31:56.695482"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "images" ("tournament_id", "url", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["tournament_id", 19], ["url", "something3.something.jpeg"], ["created_at", "2015-03-16 22:31:56.697315"], ["updated_at", "2015-03-16 22:31:56.697315"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "images" ("tournament_id", "url", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["tournament_id", 19], ["url", "something4.something.jpeg"], ["created_at", "2015-03-16 22:31:56.700006"], ["updated_at", "2015-03-16 22:31:56.700006"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "images" ("tournament_id", "url", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["tournament_id", 20], ["url", "something5.something.jpeg"], ["created_at", "2015-03-16 22:31:56.702131"], ["updated_at", "2015-03-16 22:31:56.702131"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Started GET "/tournaments/19/images" for 127.0.0.1 at 2015-03-16 18:31:56 -0400
+Processing by ImagesController#index as HTML
+  Parameters: {"tournament_id"=>"19"}
+  [1m[36mTournament Load (0.7ms)[0m  [1mSELECT  "tournaments".* FROM "tournaments" WHERE "tournaments"."id" = $1 LIMIT 1[0m  [["id", 19]]
+  [1m[35mImage Load (0.3ms)[0m  SELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1  [["tournament_id", 19]]
+Completed 200 OK in 7ms (Views: 4.5ms | ActiveRecord: 1.1ms)
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mImage Load (0.3ms)[0m  [1mSELECT "images".* FROM "images"[0m
+  [1m[35mTournament Load (0.3ms)[0m  SELECT "tournaments".* FROM "tournaments"
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1[0m  [["token", "c1e6a2892a41494c8666f131dc104230"]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["name", "Bob"], ["password_digest", "$2a$04$rC5Tsuwnur7rv53tsTKrM.hNcVkBM5hLL/jtbhY70cMZYMAoUaCfi"], ["email", "a@a.com"], ["created_at", "2015-03-16 22:31:56.729340"], ["updated_at", "2015-03-16 22:31:56.729340"], ["token", "c1e6a2892a41494c8666f131dc104230"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["question", "something?"], ["user_id", 22], ["created_at", "2015-03-16 22:31:56.733016"], ["updated_at", "2015-03-16 22:31:56.733016"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["question", "something also?"], ["user_id", 22], ["created_at", "2015-03-16 22:31:56.736643"], ["updated_at", "2015-03-16 22:31:56.736643"]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "images" ("tournament_id", "url", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["tournament_id", 21], ["url", "something.something.jpeg"], ["created_at", "2015-03-16 22:31:56.740904"], ["updated_at", "2015-03-16 22:31:56.740904"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "images" ("tournament_id", "url", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["tournament_id", 21], ["url", "something2.something.jpeg"], ["created_at", "2015-03-16 22:31:56.743901"], ["updated_at", "2015-03-16 22:31:56.743901"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "images" ("tournament_id", "url", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["tournament_id", 21], ["url", "something3.something.jpeg"], ["created_at", "2015-03-16 22:31:56.746449"], ["updated_at", "2015-03-16 22:31:56.746449"]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "images" ("tournament_id", "url", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["tournament_id", 21], ["url", "something4.something.jpeg"], ["created_at", "2015-03-16 22:31:56.749344"], ["updated_at", "2015-03-16 22:31:56.749344"]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "images" ("tournament_id", "url", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["tournament_id", 22], ["url", "something5.something.jpeg"], ["created_at", "2015-03-16 22:31:56.752864"], ["updated_at", "2015-03-16 22:31:56.752864"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Started POST "/images" for 127.0.0.1 at 2015-03-16 18:31:56 -0400
+Processing by ImagesController#create as HTML
+  Parameters: {"image"=>{"url"=>"something", "tournament_id"=>"21"}}
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "images" ("url", "tournament_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["url", "something"], ["tournament_id", 21], ["created_at", "2015-03-16 22:31:56.761154"], ["updated_at", "2015-03-16 22:31:56.761154"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Completed 201 Created in 3ms (Views: 0.3ms | ActiveRecord: 0.6ms)
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mImage Load (0.3ms)[0m  SELECT "images".* FROM "images"
+  [1m[36mTournament Load (0.2ms)[0m  [1mSELECT "tournaments".* FROM "tournaments"[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users"
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1  [["token", "992a41e137714bda9f019fbe3be03768"]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Bob"], ["password_digest", "$2a$04$PWQIcqI4S4awdU8w3WBG8e8vi8KIzDbZLQZqjxedkbeH6AekjcPua"], ["email", "a@a.com"], ["created_at", "2015-03-16 22:31:56.770578"], ["updated_at", "2015-03-16 22:31:56.770578"], ["token", "992a41e137714bda9f019fbe3be03768"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["question", "something?"], ["user_id", 23], ["created_at", "2015-03-16 22:31:56.774693"], ["updated_at", "2015-03-16 22:31:56.774693"]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["question", "something also?"], ["user_id", 23], ["created_at", "2015-03-16 22:31:56.777347"], ["updated_at", "2015-03-16 22:31:56.777347"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "images" ("tournament_id", "url", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["tournament_id", 23], ["url", "something.something.jpeg"], ["created_at", "2015-03-16 22:31:56.779540"], ["updated_at", "2015-03-16 22:31:56.779540"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "images" ("tournament_id", "url", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["tournament_id", 23], ["url", "something2.something.jpeg"], ["created_at", "2015-03-16 22:31:56.781510"], ["updated_at", "2015-03-16 22:31:56.781510"]]
+  [1m[35m (0.3ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "images" ("tournament_id", "url", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["tournament_id", 23], ["url", "something3.something.jpeg"], ["created_at", "2015-03-16 22:31:56.784793"], ["updated_at", "2015-03-16 22:31:56.784793"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "images" ("tournament_id", "url", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["tournament_id", 23], ["url", "something4.something.jpeg"], ["created_at", "2015-03-16 22:31:56.787662"], ["updated_at", "2015-03-16 22:31:56.787662"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "images" ("tournament_id", "url", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["tournament_id", 24], ["url", "something5.something.jpeg"], ["created_at", "2015-03-16 22:31:56.789780"], ["updated_at", "2015-03-16 22:31:56.789780"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/images/18" for 127.0.0.1 at 2015-03-16 18:31:56 -0400
+Processing by ImagesController#show as HTML
+  Parameters: {"id"=>"18"}
+  [1m[35mImage Load (0.4ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."id" = $1 LIMIT 1  [["id", 18]]
+Completed 201 Created in 3ms (Views: 0.6ms | ActiveRecord: 0.4ms)
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mImage Load (0.3ms)[0m  [1mSELECT "images".* FROM "images"[0m
+  [1m[35mTournament Load (0.2ms)[0m  SELECT "tournaments".* FROM "tournaments"
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1[0m  [["token", "c552e4ea782a40e487cf8ecd719ef89f"]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["name", "Bob"], ["password_digest", "$2a$04$RAI0kZlBefN9I9dITG2pWuCW9o3sJuFVsBKJLb8ihe0pluowko8Zm"], ["email", "a@a.com"], ["created_at", "2015-03-16 22:31:56.805575"], ["updated_at", "2015-03-16 22:31:56.805575"], ["token", "c552e4ea782a40e487cf8ecd719ef89f"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["question", "something?"], ["user_id", 24], ["created_at", "2015-03-16 22:31:56.808737"], ["updated_at", "2015-03-16 22:31:56.808737"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["question", "something also?"], ["user_id", 24], ["created_at", "2015-03-16 22:31:56.810578"], ["updated_at", "2015-03-16 22:31:56.810578"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "images" ("tournament_id", "url", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["tournament_id", 25], ["url", "something.something.jpeg"], ["created_at", "2015-03-16 22:31:56.812500"], ["updated_at", "2015-03-16 22:31:56.812500"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "images" ("tournament_id", "url", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["tournament_id", 25], ["url", "something2.something.jpeg"], ["created_at", "2015-03-16 22:31:56.814298"], ["updated_at", "2015-03-16 22:31:56.814298"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "images" ("tournament_id", "url", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["tournament_id", 25], ["url", "something3.something.jpeg"], ["created_at", "2015-03-16 22:31:56.816370"], ["updated_at", "2015-03-16 22:31:56.816370"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "images" ("tournament_id", "url", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["tournament_id", 25], ["url", "something4.something.jpeg"], ["created_at", "2015-03-16 22:31:56.818524"], ["updated_at", "2015-03-16 22:31:56.818524"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "images" ("tournament_id", "url", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["tournament_id", 26], ["url", "something5.something.jpeg"], ["created_at", "2015-03-16 22:31:56.820267"], ["updated_at", "2015-03-16 22:31:56.820267"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Started PATCH "/images/23" for 127.0.0.1 at 2015-03-16 18:31:56 -0400
+Processing by ImagesController#update as HTML
+  Parameters: {"image"=>{"flags"=>"1", "wins"=>"1"}, "id"=>"23"}
+  [1m[36mImage Load (0.3ms)[0m  [1mSELECT  "images".* FROM "images" WHERE "images"."id" = $1 LIMIT 1[0m  [["id", 23]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.5ms)[0m  [1mUPDATE "images" SET "wins" = $1, "flags" = $2, "updated_at" = $3 WHERE "images"."id" = $4[0m  [["wins", 1], ["flags", 1], ["updated_at", "2015-03-16 22:31:56.827956"], ["id", 23]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+Completed 200 OK in 5ms (Views: 0.5ms | ActiveRecord: 1.2ms)
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mTournament Load (0.3ms)[0m  [1mSELECT "tournaments".* FROM "tournaments"[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users"
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1  [["token", "a6f5752268414f76b8a8f85a161d533c"]]
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Bob"], ["password_digest", "$2a$04$tPkgwP3S8C6nsPPG1z3fqO6BNoduo0bAG7b3ze67dUYVg/O9.cbK2"], ["email", "a@a.com"], ["created_at", "2015-03-16 22:31:56.839065"], ["updated_at", "2015-03-16 22:31:56.839065"], ["token", "a6f5752268414f76b8a8f85a161d533c"]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1  [["token", "2e515be3073a4428980e3da8dcffda32"]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Mike"], ["password_digest", "$2a$04$qD8tc6Gr9oCyJ8s3Sa2hd.QHYEuI6BF0nm11aVBvB1tFl8MQuOL8C"], ["email", "m@m.com"], ["created_at", "2015-03-16 22:31:56.846885"], ["updated_at", "2015-03-16 22:31:56.846885"], ["token", "2e515be3073a4428980e3da8dcffda32"]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["question", "something?"], ["user_id", 25], ["created_at", "2015-03-16 22:31:56.851467"], ["updated_at", "2015-03-16 22:31:56.851467"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["question", "something also?"], ["user_id", 26], ["created_at", "2015-03-16 22:31:56.854261"], ["updated_at", "2015-03-16 22:31:56.854261"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Started GET "/tournaments" for 127.0.0.1 at 2015-03-16 18:31:56 -0400
+Processing by TournamentsController#index as HTML
+  [1m[36mTournament Load (0.4ms)[0m  [1mSELECT "tournaments".* FROM "tournaments"[0m
+  [1m[35mImage Load (0.4ms)[0m  SELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1  [["tournament_id", 27]]
+  [1m[36mImage Load (0.3ms)[0m  [1mSELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1[0m  [["tournament_id", 28]]
+  [1m[35mComment Load (0.3ms)[0m  SELECT "comments".* FROM "comments" WHERE "comments"."tournament_id" = $1  [["tournament_id", 27]]
+  [1m[36mComment Load (0.2ms)[0m  [1mSELECT "comments".* FROM "comments" WHERE "comments"."tournament_id" = $1[0m  [["tournament_id", 28]]
+Completed 200 OK in 9ms (Views: 7.2ms | ActiveRecord: 1.7ms)
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mTournament Load (0.3ms)[0m  SELECT "tournaments".* FROM "tournaments"
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1[0m  [["token", "e8b20b5db8304d2c869ccd0ed67503bd"]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["name", "Bob"], ["password_digest", "$2a$04$RobqXls7ChFOhOEjnQLDguxTvn09GLLuAJXXz4C7zZwD/GJ5yV/s6"], ["email", "a@a.com"], ["created_at", "2015-03-16 22:31:56.881563"], ["updated_at", "2015-03-16 22:31:56.881563"], ["token", "e8b20b5db8304d2c869ccd0ed67503bd"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1[0m  [["token", "de7a5cdd41cd4a8f9c5278bccb5b5818"]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["name", "Mike"], ["password_digest", "$2a$04$yfsdy/GW4I18P6UJpJ4lO.UcrVlNkhJQu370lpecC/wFu.uXhScOK"], ["email", "m@m.com"], ["created_at", "2015-03-16 22:31:56.886402"], ["updated_at", "2015-03-16 22:31:56.886402"], ["token", "de7a5cdd41cd4a8f9c5278bccb5b5818"]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["question", "something?"], ["user_id", 27], ["created_at", "2015-03-16 22:31:56.890925"], ["updated_at", "2015-03-16 22:31:56.890925"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["question", "something also?"], ["user_id", 28], ["created_at", "2015-03-16 22:31:56.893511"], ["updated_at", "2015-03-16 22:31:56.893511"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/users/27/tournaments" for 127.0.0.1 at 2015-03-16 18:31:56 -0400
+Processing by TournamentsController#index as HTML
+  Parameters: {"user_id"=>"27"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 27]]
+  [1m[36mTournament Load (0.4ms)[0m  [1mSELECT "tournaments".* FROM "tournaments" WHERE "tournaments"."user_id" = $1[0m  [["user_id", 27]]
+  [1m[35mImage Load (0.4ms)[0m  SELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1  [["tournament_id", 29]]
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT "comments".* FROM "comments" WHERE "comments"."tournament_id" = $1[0m  [["tournament_id", 29]]
+Completed 200 OK in 8ms (Views: 3.9ms | ActiveRecord: 1.4ms)
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mTournament Load (0.3ms)[0m  SELECT "tournaments".* FROM "tournaments"
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1[0m  [["token", "025a6d116d9b4aada069a15f0d7c3e86"]]
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["name", "Bob"], ["password_digest", "$2a$04$Ei5hJVldcTJRhafQEWHiFOH0TJRffdZuMDz9wbNxbMF2wXdq83Km6"], ["email", "a@a.com"], ["created_at", "2015-03-16 22:31:56.914799"], ["updated_at", "2015-03-16 22:31:56.914799"], ["token", "025a6d116d9b4aada069a15f0d7c3e86"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1[0m  [["token", "15fea441a6c94769a361c62063b6a5ad"]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["name", "Mike"], ["password_digest", "$2a$04$Jjgb5KEvaQt1ocn.py3egeYUxVMc5c/qceXCiErdOIo7yvAKhppCW"], ["email", "m@m.com"], ["created_at", "2015-03-16 22:31:56.920876"], ["updated_at", "2015-03-16 22:31:56.920876"], ["token", "15fea441a6c94769a361c62063b6a5ad"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["question", "something?"], ["user_id", 29], ["created_at", "2015-03-16 22:31:56.924387"], ["updated_at", "2015-03-16 22:31:56.924387"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["question", "something also?"], ["user_id", 30], ["created_at", "2015-03-16 22:31:56.926466"], ["updated_at", "2015-03-16 22:31:56.926466"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/tournaments" for 127.0.0.1 at 2015-03-16 18:31:56 -0400
+Processing by TournamentsController#create as JSON
+  Parameters: {"tournament"=>{"question"=>"which color is warmer?", "user_id"=>29}}
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["question", "which color is warmer?"], ["user_id", 29], ["created_at", "2015-03-16 22:31:56.934685"], ["updated_at", "2015-03-16 22:31:56.934685"]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mImage Load (0.3ms)[0m  [1mSELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1[0m  [["tournament_id", 33]]
+  [1m[35mComment Load (0.3ms)[0m  SELECT "comments".* FROM "comments" WHERE "comments"."tournament_id" = $1  [["tournament_id", 33]]
+Completed 201 Created in 8ms (Views: 2.7ms | ActiveRecord: 1.6ms)
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mTournament Load (0.3ms)[0m  [1mSELECT "tournaments".* FROM "tournaments"[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users"
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1  [["token", "c0b42406850b4031acf970e8ed359505"]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Bob"], ["password_digest", "$2a$04$YZxFYcOyca5PADbetoLLNOtX8wbAEmt0NuSd22kCNUNfPI10i.TUq"], ["email", "a@a.com"], ["created_at", "2015-03-16 22:31:56.946942"], ["updated_at", "2015-03-16 22:31:56.946942"], ["token", "c0b42406850b4031acf970e8ed359505"]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1  [["token", "096297bc855b43928cce4f574a598bba"]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Mike"], ["password_digest", "$2a$04$Esn0imI8HixrlqmTVsDUSeztzWC0irpUS0ELobx8zMMxy5csBiBX6"], ["email", "m@m.com"], ["created_at", "2015-03-16 22:31:56.951464"], ["updated_at", "2015-03-16 22:31:56.951464"], ["token", "096297bc855b43928cce4f574a598bba"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["question", "something?"], ["user_id", 31], ["created_at", "2015-03-16 22:31:56.954283"], ["updated_at", "2015-03-16 22:31:56.954283"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["question", "something also?"], ["user_id", 32], ["created_at", "2015-03-16 22:31:56.956079"], ["updated_at", "2015-03-16 22:31:56.956079"]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+Started POST "/tournaments" for 127.0.0.1 at 2015-03-16 18:31:56 -0400
+Processing by TournamentsController#create as HTML
+  Parameters: {"tournament"=>{"question"=>"which color is warmer?", "user_id"=>"31", "images"=>[{"url"=>"asd"}, {"url"=>"cec"}, {"url"=>"qwe"}]}}
+Unpermitted parameter: images
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["question", "which color is warmer?"], ["user_id", 31], ["created_at", "2015-03-16 22:31:56.963814"], ["updated_at", "2015-03-16 22:31:56.963814"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mImage Load (0.3ms)[0m  SELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1  [["tournament_id", 36]]
+  [1m[36mComment Load (0.2ms)[0m  [1mSELECT "comments".* FROM "comments" WHERE "comments"."tournament_id" = $1[0m  [["tournament_id", 36]]
+Completed 201 Created in 6ms (Views: 2.3ms | ActiveRecord: 1.2ms)
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mTournament Load (0.3ms)[0m  SELECT "tournaments".* FROM "tournaments"
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1[0m  [["token", "082ef0d1727544be9ffd7d2ebc2323fc"]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["name", "Bob"], ["password_digest", "$2a$04$vygpO.m.V1XPZQkoBM9BBuQ8mFTD/wYZU/eA5gMzoHxlT.0LZaXdO"], ["email", "a@a.com"], ["created_at", "2015-03-16 22:31:56.974358"], ["updated_at", "2015-03-16 22:31:56.974358"], ["token", "082ef0d1727544be9ffd7d2ebc2323fc"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1[0m  [["token", "cd6e29fd996b48c88145d3966a26c254"]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["name", "Mike"], ["password_digest", "$2a$04$LTso6CfQbN5NAVKeQmlAOOeA/WEJZdfiKio0HMX1JtCnSkluLhr/6"], ["email", "m@m.com"], ["created_at", "2015-03-16 22:31:56.979064"], ["updated_at", "2015-03-16 22:31:56.979064"], ["token", "cd6e29fd996b48c88145d3966a26c254"]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["question", "something?"], ["user_id", 33], ["created_at", "2015-03-16 22:31:56.982112"], ["updated_at", "2015-03-16 22:31:56.982112"]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["question", "something also?"], ["user_id", 34], ["created_at", "2015-03-16 22:31:56.985649"], ["updated_at", "2015-03-16 22:31:56.985649"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Started PATCH "/tournaments/37" for 127.0.0.1 at 2015-03-16 18:31:56 -0400
+Processing by TournamentsController#update as JSON
+  Parameters: {"tournament"=>{"email_list"=>"a@a.com"}, "id"=>"37"}
+  [1m[35mTournament Load (0.4ms)[0m  SELECT  "tournaments".* FROM "tournaments" WHERE "tournaments"."id" = $1 LIMIT 1  [["id", 37]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  UPDATE "tournaments" SET "email_list" = $1, "updated_at" = $2 WHERE "tournaments"."id" = $3  [["email_list", "a@a.com"], ["updated_at", "2015-03-16 22:31:56.993686"], ["id", 37]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mImage Load (0.2ms)[0m  SELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1  [["tournament_id", 37]]
+  [1m[36mComment Load (0.2ms)[0m  [1mSELECT "comments".* FROM "comments" WHERE "comments"."tournament_id" = $1[0m  [["tournament_id", 37]]
+Completed 200 OK in 6ms (Views: 2.0ms | ActiveRecord: 1.4ms)
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mTournament Load (0.3ms)[0m  SELECT "tournaments".* FROM "tournaments"
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1[0m  [["token", "593f4ca41cd14b37a26b4de2f4818265"]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["name", "Bob"], ["password_digest", "$2a$04$7LJ493Z11qhYqH5KrSXqX.c0UUsD9lvwuv6pU8oK/BwO/dHkXW6I6"], ["email", "a@a.com"], ["created_at", "2015-03-16 22:31:57.004799"], ["updated_at", "2015-03-16 22:31:57.004799"], ["token", "593f4ca41cd14b37a26b4de2f4818265"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1[0m  [["token", "090428557c2740a59001069f6794a8bf"]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["name", "Mike"], ["password_digest", "$2a$04$encd7gZFIak1P2f2/jbePOvgM1D1346STjtfRb8UrDQgwBj0SNbF2"], ["email", "m@m.com"], ["created_at", "2015-03-16 22:31:57.009880"], ["updated_at", "2015-03-16 22:31:57.009880"], ["token", "090428557c2740a59001069f6794a8bf"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["question", "something?"], ["user_id", 35], ["created_at", "2015-03-16 22:31:57.013010"], ["updated_at", "2015-03-16 22:31:57.013010"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "tournaments" ("question", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["question", "something also?"], ["user_id", 36], ["created_at", "2015-03-16 22:31:57.014950"], ["updated_at", "2015-03-16 22:31:57.014950"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/tournaments/39" for 127.0.0.1 at 2015-03-16 18:31:57 -0400
+Processing by TournamentsController#show as HTML
+  Parameters: {"id"=>"39"}
+  [1m[35mTournament Load (0.3ms)[0m  SELECT  "tournaments".* FROM "tournaments" WHERE "tournaments"."id" = $1 LIMIT 1  [["id", 39]]
+  [1m[36mImage Load (0.2ms)[0m  [1mSELECT "images".* FROM "images" WHERE "images"."tournament_id" = $1[0m  [["tournament_id", 39]]
+  [1m[35mComment Load (0.2ms)[0m  SELECT "comments".* FROM "comments" WHERE "comments"."tournament_id" = $1  [["tournament_id", 39]]
+Completed 200 OK in 3ms (Views: 2.1ms | ActiveRecord: 0.7ms)
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1[0m  [["token", "894f7602e5504bd7933f9850909b8486"]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["name", "Bob"], ["password_digest", "$2a$04$tlbHm7dmZ9P418xVN9y.Du/p3kEWBP5jMcQRBUewdLau2iuzWKqC2"], ["email", "a@a.com"], ["created_at", "2015-03-16 22:31:57.030228"], ["updated_at", "2015-03-16 22:31:57.030228"], ["token", "894f7602e5504bd7933f9850909b8486"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1[0m  [["token", "0e66c66e5acb4d9eb1f313250a854a3e"]]
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["name", "Mike"], ["password_digest", "$2a$04$hBmBTUlz5vMhqGc0f58LMOVJ4zz6AnHfIDxmPNOM305A1feSK14J."], ["email", "m@m.com"], ["created_at", "2015-03-16 22:31:57.036507"], ["updated_at", "2015-03-16 22:31:57.036507"], ["token", "0e66c66e5acb4d9eb1f313250a854a3e"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/users" for 127.0.0.1 at 2015-03-16 18:31:57 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"name"=>"SamoanThor", "email"=>"samoan_thor@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1[0m  [["token", "f9e9aef6a1f54ee7b611b1a6bbf879b7"]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["name", "SamoanThor"], ["email", "samoan_thor@gmail.com"], ["password_digest", "$2a$04$yOHtyzvFNC0HLCFIqD4F5OcZnzRs8TuEykPCLdiR3jGv1bh.cYe0m"], ["created_at", "2015-03-16 22:31:57.055802"], ["updated_at", "2015-03-16 22:31:57.055802"], ["token", "f9e9aef6a1f54ee7b611b1a6bbf879b7"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Completed 200 OK in 11ms (Views: 2.5ms | ActiveRecord: 0.8ms)
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users"
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1  [["token", "ce8b07f47c5644eda04d2390f171358f"]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Bob"], ["password_digest", "$2a$04$fLVpKpQZRwFXqF963Z0acuBaWMz2ZeM/8du4k7BfillOwk.zq6qd6"], ["email", "a@a.com"], ["created_at", "2015-03-16 22:31:57.069330"], ["updated_at", "2015-03-16 22:31:57.069330"], ["token", "ce8b07f47c5644eda04d2390f171358f"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."token" = $1 LIMIT 1  [["token", "ead4c50b4e734b9f8a4d8e695f0dc2aa"]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("name", "password_digest", "email", "created_at", "updated_at", "token") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Mike"], ["password_digest", "$2a$04$D1pm5MGlYd5p3y.f/pfyLuWolCgA8JTgDWgVxHX7ijAn6SQj9wpP6"], ["email", "m@m.com"], ["created_at", "2015-03-16 22:31:57.074839"], ["updated_at", "2015-03-16 22:31:57.074839"], ["token", "ead4c50b4e734b9f8a4d8e695f0dc2aa"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+Started GET "/users/40" for 127.0.0.1 at 2015-03-16 18:31:57 -0400
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"40"}
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 40]]
+  [1m[36mTournament Load (0.4ms)[0m  [1mSELECT "tournaments".* FROM "tournaments" WHERE "tournaments"."user_id" = $1[0m  [["user_id", 40]]
+  [1m[35mComment Load (0.6ms)[0m  SELECT "comments".* FROM "comments" INNER JOIN "tournaments" ON "comments"."tournament_id" = "tournaments"."id" WHERE "tournaments"."user_id" = $1  [["user_id", 40]]
+Completed 200 OK in 27ms (Views: 24.5ms | ActiveRecord: 1.7ms)
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
