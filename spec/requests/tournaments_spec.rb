@@ -51,9 +51,15 @@ RSpec.describe 'Tournament requests' do
         tournament: {
           question: "which color is warmer?",
           user_id: @user.id,
-          images: [{url: 'asd'}, {url: 'cec'}, {url: 'qwe'}]
+          images_attributes: [{url: 'asd'}, {url: 'cec'}, {url: 'qwe'}]
         }
-      }
+      }.to_json,
+      { 'Accept' => Mime::JSON, 'Content-Type' => Mime::JSON.to_s }
+      expect(response).to be_success
+      expect(response.content_type).to be Mime::JSON
+
+      tournament = JSON.parse(response.body)
+      expect(tournament["images"].length).to eq 3
     end
   end
 
