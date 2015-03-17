@@ -44,7 +44,7 @@ class TournamentsController < ApplicationController
   private
 
   def new_tournament_params
-      params.require(:tournament).permit(:question, :user_id, image_attributes: [:url, :id])
+      params.require(:tournament).permit(:question, :user_id, images_attributes: [:url, :id])
   end
 
   def edit_tournament_params
