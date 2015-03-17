@@ -1,6 +1,6 @@
 class TournamentsController < ApplicationController
-  def index
 
+  def index
     if params[:user_id]
       @tournaments = User.find(params[:user_id]).tournaments
     else

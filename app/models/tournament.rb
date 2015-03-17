@@ -11,8 +11,8 @@
 #
 
 class Tournament < ActiveRecord::Base
-  has_many :images
-  has_many :comments
+  has_many :images, dependent: :destroy
+  has_many :comments, dependent: :destroy
   validates :question, :user_id, presence: true
   accepts_nested_attributes_for :images
 end
