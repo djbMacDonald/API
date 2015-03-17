@@ -4,10 +4,9 @@ Rails.application.routes.draw do
     resources :tournaments, only: [:index]
   end
   resources :tournaments, only: [:create, :show, :index, :update, :destroy] do
-    resources :images, only: [:index]
     resources :comments, only: [:create, :index]
   end
-  resources :images, only: [:create, :show, :flag, :update]
+  post '/images/:id/win', to: 'images#win'
   resources :comments, only: [:update]
 
   resources :amazon, only: [] do
