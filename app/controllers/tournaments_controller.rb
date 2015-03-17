@@ -38,7 +38,7 @@ class TournamentsController < ApplicationController
     @tournament = Tournament.find(params[:id])
     @tournament.destroy
 
-    head :no_content
+    render json: @tournament
   end
 
   private
