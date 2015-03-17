@@ -17,3 +17,5 @@ comment_1 = Comment.create!(body: "I am 2 fast 4 you", user_id: user_2.id, tourn
 comment_2 = Comment.create!(body: "Of course, Japanese Import!", user_id: user_3.id, tournament_id: tourney_2.id, subcomment: "Psh, nah! American Muscle!")
 
 tournament = Tournament.create!(question: 'Which picture is best?', user_id: user_1.id, images_attributes: [{url: 'https://s3.amazonaws.com/my-pixelect-bucket/uploads/22a2490f-8565-4241-8178-e676ec8a7d0b'}, {url: 'https://s3.amazonaws.com/my-pixelect-bucket/uploads/520fcb62-4ab2-40ec-ab69-5ecc993cc6ab'}])
+Comment.create!(body: "first!", user_id: user_3.id, tournament_id: tournament.id, subcomment: "hate you.")
+Comment.create!(body: "not first!", user_id: user_2.id, tournament_id: tournament.id)
