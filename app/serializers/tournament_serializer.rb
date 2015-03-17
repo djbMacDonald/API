@@ -6,6 +6,6 @@ class TournamentSerializer < ActiveModel::Serializer
   end
 
   def popular
-    object.images.sort{|a,b| a.wins <=> b.wins}[0]
+    object.images.sort{|a,b| a.wins <=> b.wins}[-1]
   end
 end
