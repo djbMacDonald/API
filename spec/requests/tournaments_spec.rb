@@ -88,4 +88,12 @@ RSpec.describe 'Tournament requests' do
       expect(json["question"]).to eq "something?"
     end
   end
+
+  describe 'DELETE destroy' do
+    it 'destroys the requested tournament' do
+      expect {
+        delete "/tournaments/#{@tourn.id}"
+      }.to change(Tournament, :count).by(-1)
+    end
+  end
 end
