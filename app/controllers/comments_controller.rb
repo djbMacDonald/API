@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
   def create
     @comment = Tournament.find(params[:tournament_id]).comments.new(new_comment_params)
     if @comment.save
-      render json: @comment, status: 201
+      render json: @comment.tournament, status: 201
     else
       render json: @comment.errors,
       status: :unprocessable_entity
