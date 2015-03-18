@@ -15,4 +15,3 @@ class TournamentSerializer < ActiveModel::Serializer
     }.compact
   end
 end
-a
