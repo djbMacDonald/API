@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :index]
   end
   post '/images/:id/win', to: 'images#win'
+  post '/images/:id/flag', to: 'images#flag'
   resources :comments, only: [:update]
 
   resources :amazon, only: [] do

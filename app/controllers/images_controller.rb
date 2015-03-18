@@ -7,4 +7,11 @@ class ImagesController < ApplicationController
     render json: @image.tournament
   end
 
+  def flag
+    @image = Image.find(params[:id])
+    @image.flags += 1
+    @image.save
+    render json: @image.tournament
+  end
+
 end

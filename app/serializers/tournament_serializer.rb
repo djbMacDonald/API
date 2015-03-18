@@ -8,4 +8,11 @@ class TournamentSerializer < ActiveModel::Serializer
   def popular
     object.images.sort{|a,b| a.wins <=> b.wins}[-1]
   end
+
+  def images
+    object.images.map { |image|
+      image.flags < 3 ? image : nil
+    }.compact
+  end
 end
+a
